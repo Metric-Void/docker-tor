@@ -146,7 +146,7 @@ hidden_services_config(){
   hosts=(${TOR_SERVICE_HOSTS// / })
 
   ## Create hidden_services directory and set permission
-  mkdir -p /tor/hidden_services && chown -R nonroot:nonroot/tor/hidden_services  && chmod 777 /tor/hidden_services
+  mkdir -p /tor/hidden_services && chown -R nonroot:nonroot /tor/hidden_services  && chmod 777 /tor/hidden_services
 
   ## Parse through each host
   for host in ${hosts[@]}; do
@@ -181,6 +181,10 @@ hidden_services_config(){
 
   done
 
+}
+
+enforce_hidden_service_permissions() {
+  chown -R nonroot:nonroot /tor/hidden_services && chmod -R 700 /tor/hidden_services
 }
 
 ##############################################################################
@@ -263,7 +267,8 @@ main() {
 
   map_user
   link_config
-
+  enforce_hidden_service_permissions
+  
   ## Echo config to log if set true
   if $TOR_LOG_CONFIG; then
     echo_config

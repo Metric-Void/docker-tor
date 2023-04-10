@@ -1,4 +1,4 @@
-TOR_VER = 0.4.6.7
+TOR_VER = 0.4.7.13
 ALPINE_VER=3.14
 
 login:
@@ -15,8 +15,8 @@ initialise-builder:
 build:
 	docker buildx build \
 		--platform linux/amd64,linux/arm64,linux/arm/v7 \
-		-t barneybuffet/tor:$(TOR_VER) \
-		-t barneybuffet/tor:latest \
+		-t metricvoid/tor:$(TOR_VER) \
+		-t metricvoid/tor:latest \
 		--build-arg TOR_VER=$(TOR_VER) \
 		--build-arg ALPINE_VER=$(ALPINE_VER) \
 		--push \
@@ -30,20 +30,20 @@ run:
 	docker run -i -d --rm \
 		-p 9050:9050 \
 		--name $(CONTAINER_NAME) \
-		barneybuffet/tor
+		metricvoid/tor
 
 ARM_SHA?=660432aec93b84c61d24541e5cf135491829df01ac900a20de325f8726f6118c
 run-arm:
 	docker run -i -d --rm \
 		-p 9050:9050 \
 		--name $(CONTAINER_NAME) \
-		barneybuffet/tor-socks@sha256:$(ARM_SHA)
+		metricvoid/tor-socks@sha256:$(ARM_SHA)
 
 stop:
 	docker stop $(CONTAINER_NAME)
 
 inspect:
-	docker buildx imagetools inspect barneybuffet/tor:latest
+	docker buildx imagetools inspect metricvoid/tor:latest
 
 test-install-linux:
 	curl -LO https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64 && chmod +x container-structure-test-linux-amd64 && mkdir -p $HOME/bin && export PATH=$PATH:$HOME/bin && mv container-structure-test-linux-amd64 $HOME/bin/container-structure-test
