@@ -1,5 +1,5 @@
 TOR_VER = 0.4.7.13
-ALPINE_VER=3.14
+ALPINE_VER=3.17
 
 login:
 	docker login

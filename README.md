@@ -21,7 +21,7 @@ The docker image:
 
 * Starts with an Alpine linux base image
 * Downloads the Tor source code tarballs signature file
-* Verifies the Tor source tarballs against [Roger Dingledine: 0xEB5A896A28988BF5](https://2019.www.torproject.org/include/keys.txt) key
+* Verifies the Tor source tarballs against keys listed on Tor project repository.
 * Compiles Tor from source
 * Templates out the Tor config file [torrc](https://www.mankier.com/1/tor)
 * Starts the tor service
