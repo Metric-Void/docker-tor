@@ -59,12 +59,5 @@ jobs:
       - name: Prepare Buildx environment
         run: make initialise-builder
       
-      - name: Build Image
+      - name: Build and Push Image
         run: make build
-      
-      # Build and push Docker image with Buildx (don't push on PR)
-      # https://github.com/docker/build-push-action
-      - name: Push Docker image
-        run: |
-          docker load < result
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
